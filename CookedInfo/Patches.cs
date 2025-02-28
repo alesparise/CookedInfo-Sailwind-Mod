@@ -50,10 +50,7 @@ namespace CookedInfo
             }
 
             private static string BuildDescription(ShipItem food)
-            {
-                if (food.amount > 0f && food.amount < 1f)
-                    return $"undercooked {food.description} {CookedPercent(food.amount)}{CookingBar(food.amount)}";
-                
+            {                
                 if (food.amount >= 1.25f && food.amount < 1.5f)
                     return $"overcooked {(food.description.Contains("cooked") ? "" : food.description)} {CookedPercent(food.amount)}{CookingBar(food.amount)}";                
 
@@ -93,8 +90,8 @@ namespace CookedInfo
                         bar.Append("░"); // Empty character
                     }
                 }
-                return $"\n<size=3%>{bar}</size>";
-                
+
+                return $"\n<size=3%>{bar}</size>";                
             }
         }
     }

@@ -41,7 +41,7 @@ namespace CookedInfo
                     if (!Plugin.configColoredText.Value)                    
                         ___food.description = $"\n{BuildDescription(___food, ___dried)}";
                     
-                    if (___dried > 0f && ___dried < 1f)                    
+                    if (___dried > 0f && ___dried < 0.99f)                    
                         ___food.description = $"\n<color={yellow}>{BuildDescription(___food, ___dried)}</color>";
                     
                     if (___dried >= 0.99f)                    

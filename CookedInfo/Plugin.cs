@@ -28,9 +28,9 @@ namespace CookedInfo
 
             Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly(), PLUGIN_GUID);
 
-            configColoredText = Config.Bind("Colored Text", "showColoredText", true, "Enables the colored text for raw, cooked and burnt food, change to false to disable it.");
-            configCookingPercent = Config.Bind("Cooking Percentage", "showCookingPercent", true, "Enables the cooking percentage when cooking food, change to false to disable it.");
-            configCookingBar = Config.Bind("Loading Bar", "showCookingBar", true, "Enables the cooking loading bar when cooking food, change to false to disable it.");
+            configColoredText = Config.Bind("Colored Text", "showColoredText", true, "Enables the colored text for raw, cooked, and overcooked food, change to false to disable it.");
+            configCookingPercent = Config.Bind("Cooking Percentage", "showCookingPercent", true, "Enables the cooking percentage when cooking or drying food, change to false to disable it.");
+            configCookingBar = Config.Bind("Loading Bar", "showCookingBar", true, "Enables the cooking loading bar when cooking or drying food, change to false to disable it.");
             configFreshnessBar = Config.Bind("Freshness Bar", "showFreshnessBar", true, "Enables the freshness loading bar, change to false to disable it.");
         }
     }    

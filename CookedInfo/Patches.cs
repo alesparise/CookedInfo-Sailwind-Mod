@@ -27,9 +27,6 @@ namespace CookedInfo
             {
                 if (___cookable.GetCurrentCookTrigger())
                 {
-                    if (!Plugin.configColoredText.Value)
-                        ___food.description = $"{___food.description}{CookedPercent(___food.amount)}{CookingBar(___food.amount)}";
-
                     if (___food.amount > 0f && ___food.amount < 1f)
                         ___food.description = $"{BuildDescription(yellow, ___food.description, ___food.amount)}";
 
@@ -42,9 +39,6 @@ namespace CookedInfo
 
                 if (___dryingCol)
                 {
-                    if (!Plugin.configColoredText.Value)
-                        ___food.description = $"{___food.description}{CookedPercent(___dried)}{CookingBar(___dried)}";
-
                     if (___dried > 0f && ___dried < 0.99f)
                         ___food.description = $"{BuildDescription(yellow, ___food.description, ___dried)}";
 
@@ -54,16 +48,18 @@ namespace CookedInfo
 
                 if (!Plugin.configFreshnessBar.Value) return;
                 if (___spoiled < 0.30f)
-                    ___food.description = $"{___food.description}<color={light_blue}>{CookingBar(0.9f - ___spoiled)}</color>";
+                    ___food.description = $"{FreshnessBar(light_blue, ___food, ___spoiled)}";
                 if (___spoiled >= 0.30f && ___spoiled < 0.6f)
-                    ___food.description = $"{___food.description}<color={med_blue}>{CookingBar(0.9f - ___spoiled)}</color>";
+                    ___food.description = $"{FreshnessBar(med_blue, ___food, ___spoiled)}";
                 if (___spoiled >= 0.60f && ___spoiled < 0.9f)
-                    ___food.description = $"{___food.description}<color={dark_blue}>{CookingBar(0.9f - ___spoiled)}</color>";
-                
+                    ___food.description = $"{FreshnessBar(dark_blue, ___food, ___spoiled)}";
             }
 
             private static string BuildDescription(string color, string desc, float amount)
             {
+                if (!Plugin.configColoredText.Value)
+                    return $"{desc}{CookedPercent(amount)}{CookingBar(amount)}";
+
                 return $"{desc}<color={color}>{CookedPercent(amount)}{CookingBar(amount)}</color>";
             }
 
@@ -74,10 +70,23 @@ namespace CookedInfo
                 return $"\n<b>{Mathf.RoundToInt(amount * 100)}%</b>";
             }
 
-            private static string CookingBar(float amount)
-            {   //possibly useful ASCII characters: ████░░░░░░ ████▒▒▒▒ ■□□□□ ▄▄▄... ▀▀    ═══───
+            private static string CookingBar(float amount) 
+            {
                 if (!Plugin.configCookingBar.Value) return "";
-                
+
+                return $"{ProgressBar(amount)}";
+            }
+
+            private static string FreshnessBar(string color, ShipItemFood food, float amount)
+            {
+                if (!Plugin.configColoredText.Value) 
+                    return $"{food.description}{ProgressBar(0.9f - amount)}"; ;
+
+                return $"{food.description}<color={color}>{ProgressBar(0.9f - amount)}</color>";
+            }
+
+            private static string ProgressBar(float amount)
+            {   //possibly useful ASCII characters: ████░░░░░░ ████▒▒▒▒ ■□□□□ ▄▄▄... ▀▀    ═══───
                 int barLength = 300; // Total length of the loading bar
                 int filledLength = (int)(amount * barLength); // Calculate the number of filled characters
 

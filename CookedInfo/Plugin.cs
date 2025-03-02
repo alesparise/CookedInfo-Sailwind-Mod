@@ -19,6 +19,7 @@ namespace CookedInfo
         internal static ConfigEntry<bool> configColoredText;
         internal static ConfigEntry<bool> configCookingPercent;
         internal static ConfigEntry<bool> configCookingBar;
+        internal static ConfigEntry<bool> configFreshnessBar;
 
         private void Awake()
         {
@@ -29,7 +30,8 @@ namespace CookedInfo
 
             configColoredText = Config.Bind("Colored Text", "showColoredText", true, "Enables the colored text for raw, cooked and burnt food, change to false to disable it.");
             configCookingPercent = Config.Bind("Cooking Percentage", "showCookingPercent", true, "Enables the cooking percentage when cooking food, change to false to disable it.");
-            configCookingBar = Config.Bind("Loading Bar", "showCookingBar", true, "Enables the cooking loading bar when cooking food, change to false to disable it.");                     
+            configCookingBar = Config.Bind("Loading Bar", "showCookingBar", true, "Enables the cooking loading bar when cooking food, change to false to disable it.");
+            configFreshnessBar = Config.Bind("Freshness Bar", "showFreshnessBar", true, "Enables the freshness loading bar, change to false to disable it.");
         }
     }    
 }

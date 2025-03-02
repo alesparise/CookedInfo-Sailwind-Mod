@@ -12,6 +12,9 @@ namespace CookedInfo
             static readonly string red = "#4D0000";
             static readonly string green = "#003300";
             static readonly string yellow = "#CC7F00";
+            static readonly string light_blue = "#2861fc";
+            static readonly string med_blue = "#1C3270";
+            static readonly string dark_blue = "#071336";
 
             [HarmonyPostfix]
             [HarmonyPatch("UpdateLookText")]
@@ -19,47 +22,49 @@ namespace CookedInfo
                 ShipItemFood ___food,
                 CookableFood ___cookable,
                 float ___dried,
-                DryingRackCol ___dryingCol)
+                DryingRackCol ___dryingCol,
+                float ___spoiled)
             {
-                if (___cookable.GetCurrentCookTrigger()) 
+                if (___cookable.GetCurrentCookTrigger())
                 {
                     if (!Plugin.configColoredText.Value)
-                        ___food.description = $"\n{BuildDescription(___food)}";
+                        ___food.description = $"{___food.description}{CookedPercent(___food.amount)}{CookingBar(___food.amount)}";
 
                     if (___food.amount > 0f && ___food.amount < 1f)
-                        ___food.description = $"\n<color={yellow}>{BuildDescription(___food)}</color>";
+                        ___food.description = $"{BuildDescription(yellow, ___food.description, ___food.amount)}";
 
-                    if (___food.amount >= 1f && ___food.amount < 1.5f)
-                        ___food.description = $"\n<color={green}>{BuildDescription(___food)}</color>";
+                    if (___food.amount >= 1f && ___food.amount < 1.25f)
+                        ___food.description = $"{BuildDescription(green, ___food.description, ___food.amount)}";
 
-                    if (___food.amount > 1.5f)
-                        ___food.description = $"\n<color={red}>{BuildDescription(___food)}</color>";
+                    if (___food.amount >= 1.25f)                    
+                        ___food.description = $"{BuildDescription(red, $"overcooked {___food.description.Replace("cooked ", "")}", ___food.amount)}";                    
                 }
 
                 if (___dryingCol)
                 {
-                    if (!Plugin.configColoredText.Value)                    
-                        ___food.description = $"\n{BuildDescription(___food, ___dried)}";
-                    
-                    if (___dried > 0f && ___dried < 0.99f)                    
-                        ___food.description = $"\n<color={yellow}>{BuildDescription(___food, ___dried)}</color>";
-                    
-                    if (___dried >= 0.99f)                    
-                        ___food.description = $"\n<color={green}>{BuildDescription(___food, ___dried)}</color>";                    
+                    if (!Plugin.configColoredText.Value)
+                        ___food.description = $"{___food.description}{CookedPercent(___dried)}{CookingBar(___dried)}";
+
+                    if (___dried > 0f && ___dried < 0.99f)
+                        ___food.description = $"{BuildDescription(yellow, ___food.description, ___dried)}";
+
+                    if (___dried >= 0.99f)
+                        ___food.description = $"{BuildDescription(green, ___food.description, ___dried)}";
                 }
+
+                if (!Plugin.configFreshnessBar.Value) return;
+                if (___spoiled < 0.30f)
+                    ___food.description = $"{___food.description}<color={light_blue}>{CookingBar(0.9f - ___spoiled)}</color>";
+                if (___spoiled >= 0.30f && ___spoiled < 0.6f)
+                    ___food.description = $"{___food.description}<color={med_blue}>{CookingBar(0.9f - ___spoiled)}</color>";
+                if (___spoiled >= 0.60f && ___spoiled < 0.9f)
+                    ___food.description = $"{___food.description}<color={dark_blue}>{CookingBar(0.9f - ___spoiled)}</color>";
+                
             }
 
-            private static string BuildDescription(ShipItem food)
-            {                
-                if (food.amount >= 1.25f && food.amount < 1.5f)
-                    return $"overcooked {(food.description.Contains("cooked") ? "" : food.description)} {CookedPercent(food.amount)}{CookingBar(food.amount)}";                
-
-                return $"{food.description} {CookedPercent(food.amount)}{CookingBar(food.amount)}";
-            }
-
-            private static string BuildDescription(ShipItem food, float dried)
+            private static string BuildDescription(string color, string desc, float amount)
             {
-                return $"{food.description} {CookedPercent(dried)}{CookingBar(dried)}";
+                return $"{desc}<color={color}>{CookedPercent(amount)}{CookingBar(amount)}</color>";
             }
 
             private static string CookedPercent(float amount)

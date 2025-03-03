@@ -25,6 +25,7 @@ namespace CookedInfo
                 DryingRackCol ___dryingCol,
                 float ___spoiled)
             {
+                // if in stove or smoker, food is cooked at 1f and burns at 1.5f
                 if (___cookable.GetCurrentCookTrigger())
                 {
                     if (___food.amount > 0f && ___food.amount < 1f)
@@ -37,6 +38,7 @@ namespace CookedInfo
                         ___food.description = $"{BuildDescription(red, $"overcooked {___food.description.Replace("cooked ", "")}", ___food.amount)}";                    
                 }
 
+                // if on drying rack, food dries at 0.99f
                 if (___dryingCol)
                 {
                     if (___dried > 0f && ___dried < 0.99f)
@@ -46,6 +48,7 @@ namespace CookedInfo
                         ___food.description = $"{BuildDescription(green, ___food.description, ___dried)}";
                 }
 
+                // freshness, food spoils at 0.9f
                 if (!Plugin.configFreshnessBar.Value) return;
                 if (___spoiled < 0.30f)
                     ___food.description = $"{FreshnessBar(light_blue, ___food, ___spoiled)}";

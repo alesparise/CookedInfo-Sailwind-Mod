@@ -72,8 +72,10 @@ namespace CookedInfo
                 float ___currentUncookedEnergy,
                 float ___currentSpoiled)
             {
+                // soup doesn't have a fixed cook point, use a ratio of current engergy / current energy + uncooked energy
                 var amount = ___currentEnergy / (___currentEnergy + ___currentUncookedEnergy);
-                // if in stove or smoker, food is cooked at 1f and burns at 1.5f
+
+                // if in stove or smoker
                 if (___cookable.GetCurrentCookTrigger())
                 {
                     if (amount > 0f && amount < 1f)

@@ -79,10 +79,10 @@ namespace CookedInfo
                 if (___cookable.GetCurrentCookTrigger())
                 {
                     if (amount > 0f && amount < 1f)
-                        __instance.lookText = $"{BuildDescription(yellow, $"undercooked {__instance.lookText}", amount)}";
+                        __instance.description = $"{BuildDescription(yellow, $"undercooked {__instance.description}", amount)}";
 
                     if (amount >= 1f)
-                        __instance.lookText = $"{BuildDescription(green, $"cooked {__instance.lookText}", amount)}";
+                        __instance.description = $"{BuildDescription(green, $"cooked {__instance.description}", amount)}";
 
                 }
 
@@ -91,11 +91,11 @@ namespace CookedInfo
                 //var spoiled = ___currentSpoiled / 0.9f;
                 //if (!Plugin.configFreshnessBar.Value) return;
                 //if (spoiled < 0.33f)
-                //    __instance.lookText = $"{FreshnessBar(light_blue, __instance.lookText, spoiled)}";
+                //    __instance.description = $"{FreshnessBar(light_blue, __instance.description, spoiled)}";
                 //if (spoiled >= 0.33f && spoiled < 0.66f)
-                //    __instance.lookText = $"{FreshnessBar(med_blue, __instance.lookText, spoiled)}";
+                //    __instance.description = $"{FreshnessBar(med_blue, __instance.description, spoiled)}";
                 //if (spoiled >= 0.66f)
-                //    __instance.lookText = $"{FreshnessBar(dark_blue, __instance.lookText, spoiled)}";
+                //    __instance.description = $"{FreshnessBar(dark_blue, __instance.description, spoiled)}";
             }
         }
 

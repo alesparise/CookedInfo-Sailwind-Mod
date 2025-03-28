@@ -9,5 +9,5 @@
 **Installation:** Download CookedInfo.dll and move it into the *...\Sailwind\BepInEx\plugins* folder.  
   
 **Game version:** *0.29+*  
-**Mod Version:** *1.2.0*  
-**CREDIT:** ⚠️✨Update 1.2.0 was **entirely** made by raddude (discord username)! ✨⚠️
+**Mod Version:** *1.2.1*  
+**CREDIT:** ⚠️✨Update 1.2./1.2.1 were **entirely** made by raddude (discord username)! ✨⚠️

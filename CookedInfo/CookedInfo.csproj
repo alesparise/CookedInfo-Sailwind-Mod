@@ -9,9 +9,6 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CookedInfo</RootNamespace>
     <AssemblyName>CookedInfo</AssemblyName>
-	<OutputPath>bin\Debug</OutputPath>
-	<ModName>CookedInfo</ModName>
-	<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -60,9 +57,4 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(SolutionDir)$(AssemblyName).VS.props" />
-  <Target Name="AfterBuild">
-	<RemoveDir Directories="$(BepInExPluginsDirectory)\$(ModName)" />
-	<Copy SourceFiles="$(ProjectDir)\bin\Debug\$(ModName).dll" DestinationFolder="$(BepInExPluginsDirectory)" ContinueOnError="true" />
-  </Target>
 </Project>

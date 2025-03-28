@@ -62,7 +62,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)$(AssemblyName).VS.props" />
   <Target Name="AfterBuild">
-	<RemoveDir Directories="$(BepInExPluginsDirectory)\$(ModName)" />
+	<Delete Files="$(BepInExPluginsDirectory)\$(ModName).dll" />
 	<Copy SourceFiles="$(ProjectDir)\bin\Debug\$(ModName).dll" DestinationFolder="$(BepInExPluginsDirectory)" ContinueOnError="true" />
   </Target>
 </Project>

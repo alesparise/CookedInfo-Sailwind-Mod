@@ -11,7 +11,7 @@ namespace CookedInfo
     {
         public const string PLUGIN_GUID = "pr0skynesis.cookedinfo";
         public const string PLUGIN_NAME = "Cooked Info";
-        public const string PLUGIN_VERSION = "1.2.0";   //update 1.2.0 was made by raddude/byron82 (discord/github)
+        public const string PLUGIN_VERSION = "1.2.1";   //update 1.2.0/1.2.1 were made by raddude/byron82 (discord/github)
 
         internal static Plugin instance;
         internal static ManualLogSource logger;

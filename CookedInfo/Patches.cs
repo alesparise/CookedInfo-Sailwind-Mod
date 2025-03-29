@@ -75,27 +75,34 @@ namespace CookedInfo
                 // soup doesn't have a fixed cook point, use a ratio of current engergy / current energy + uncooked energy
                 var amount = ___currentEnergy / (___currentEnergy + ___currentUncookedEnergy);
 
+                // soup spoils at currentSpoiled / (currentEnergy + currentUncookedEnergy) > 0.9f
+                var spoiled = (___currentSpoiled / (___currentEnergy + ___currentUncookedEnergy)) / 0.9f;
+
+                // soup doesn't have good descriptions yet so making our own
+                if (amount > 0f && amount < 1f)
+                    __instance.description = $"uncooked soup";
+                if (amount >= 1f)
+                    __instance.description = $"cooked soup";
+                if (spoiled > 0.9) 
+                    __instance.description = $"rotten soup";
+
                 // if in stove or smoker
                 if (___cookable.GetCurrentCookTrigger())
                 {
                     if (amount > 0f && amount < 1f)
-                        __instance.description = $"{BuildDescription(yellow, $"undercooked {__instance.description}", amount)}";
-
+                        __instance.description = $"{BuildDescription(yellow, __instance.description, amount)}";
                     if (amount >= 1f)
-                        __instance.description = $"{BuildDescription(green, $"cooked {__instance.description}", amount)}";
-
+                        __instance.description = $"{BuildDescription(green, __instance.description, amount)}";
                 }
 
-                // No spoilage with soup right now, uncomment once that changes and update the spoilage value
-                // freshness, food spoils at 0.9f
-                //var spoiled = ___currentSpoiled / 0.9f;
-                //if (!Plugin.configFreshnessBar.Value) return;
-                //if (spoiled < 0.33f)
-                //    __instance.description = $"{FreshnessBar(light_blue, __instance.description, spoiled)}";
-                //if (spoiled >= 0.33f && spoiled < 0.66f)
-                //    __instance.description = $"{FreshnessBar(med_blue, __instance.description, spoiled)}";
-                //if (spoiled >= 0.66f)
-                //    __instance.description = $"{FreshnessBar(dark_blue, __instance.description, spoiled)}";
+                // freshness                
+                if (!Plugin.configFreshnessBar.Value) return;
+                if (spoiled < 0.33f)
+                    __instance.description = $"{FreshnessBar(light_blue, __instance.description, spoiled)}";
+                if (spoiled >= 0.33f && spoiled < 0.66f)
+                    __instance.description = $"{FreshnessBar(med_blue, __instance.description, spoiled)}";
+                if (spoiled >= 0.66f)
+                    __instance.description = $"{FreshnessBar(dark_blue, __instance.description, spoiled)}";                
             }
         }
 

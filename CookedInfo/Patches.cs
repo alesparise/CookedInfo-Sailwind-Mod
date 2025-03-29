@@ -83,7 +83,7 @@ namespace CookedInfo
                     __instance.description = $"uncooked soup";
                 if (amount >= 1f)
                     __instance.description = $"cooked soup";
-                if (spoiled > 1f)
+                if (spoiled >= 1f)
                     __instance.description = $"rotten soup";
 
                 // if in stove or smoker

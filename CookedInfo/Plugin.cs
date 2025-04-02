@@ -11,7 +11,7 @@ namespace CookedInfo
     {
         public const string PLUGIN_GUID = "pr0skynesis.cookedinfo";
         public const string PLUGIN_NAME = "Cooked Info";
-        public const string PLUGIN_VERSION = "1.2.2";
+        public const string PLUGIN_VERSION = "1.2.3";
 
         internal static Plugin instance;
         internal static ManualLogSource logger;

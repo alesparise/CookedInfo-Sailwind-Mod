@@ -1,17 +1,16 @@
-﻿using HarmonyLib;
-using System.Text;
+﻿using System.Text;
 using UnityEngine;
 
 namespace CookedInfo
 {
     internal static class DescriptionBuilder
     {
-        static readonly string red = "#4D0000";
-        static readonly string green = "#003300";
-        static readonly string yellow = "#CC7F00";
-        static readonly string light_blue = "#2861FC";
-        static readonly string med_blue = "#1C3270";
-        static readonly string dark_blue = "#071336";
+        const string red = "#4D0000";
+        const string green = "#003300";
+        const string yellow = "#CC7F00";
+        const string light_blue = "#2861FC";
+        const string med_blue = "#1C3270";
+        const string dark_blue = "#071336";
 
         public static void BurnableDescription(ref string description, float amount)
         {
@@ -28,25 +27,28 @@ namespace CookedInfo
         public static void NonBurnableDescription(ref string description, float amount)
         {
             if (amount > 0f && amount < 1f)
-                description = $"{BuildDescription(yellow, description, amount)}";
+                description = $"{BuildDescription(yellow, description, amount, false)}";
 
             if (amount >= 1f)
-                description = $"{BuildDescription(green, description, amount)}";
-        }        
-
-        private static string BuildDescription(string color, string desc, float amount)
-        {
-            if (!Plugin.configColoredText.Value)
-                return $"{desc}{CookedPercent(amount)}{CookingBar(amount)}";
-
-            return $"{desc}<color={color}>{CookedPercent(amount)}{CookingBar(amount)}</color>";
+                description = $"{BuildDescription(green, description, amount, false)}";
         }
 
-        private static string CookedPercent(float amount)
+        private static string BuildDescription(string color, string desc, float amount, bool canOvercook = true)
+        {
+            if (!Plugin.configColoredText.Value)
+                return $"{desc}{CookedPercent(amount, canOvercook)}{CookingBar(amount)}";
+
+            return $"{desc}<color={color}>{CookedPercent(amount, canOvercook)}{CookingBar(amount)}</color>";
+        }
+
+        private static string CookedPercent(float amount, bool canOvercook)
         {
             if (!Plugin.configCookingPercent.Value) return "";
 
-            return $"\n<b>{Mathf.RoundToInt(amount * 100)}%</b>";
+            amount = Mathf.RoundToInt(amount * 100);
+            amount = !canOvercook && amount > 100 ? 100 : amount;
+
+            return $"\n<b>{amount}%</b>";
         }
 
         private static string CookingBar(float amount)

@@ -62,7 +62,7 @@ namespace CookedInfo
                 if (spoiled >= 1f)
                     __instance.description = $"rotten soup";
                 if (___currentEnergy + ___currentUncookedEnergy == 0f)
-                    __instance.description = ___currentWater > 0f ? "pot of water" : "empty pot";
+                    __instance.description = ___currentWater > 0f ? $"{__instance.name} of water" : __instance.name;
 
                 // if in stove or smoker
                 if (___cookable.GetCurrentCookTrigger())
